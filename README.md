@@ -43,8 +43,13 @@ https://pablo-dev09.github.io/smart-iphone/
 ### Vercel
 
 1. Importe o repositório em https://vercel.com/new.
-2. A Vercel detecta Next.js automaticamente. O build usa `npm run build`, que gera `out/` na raiz (sem `basePath`).
-3. (Opcional) O arquivo `vercel.json` deixa explícito o framework, o comando e a pasta de saída.
+2. A Vercel detecta Next.js automaticamente e respeita o `output: 'export'` do `next.config.mjs`. O build usa `npm run build`, que gera a pasta `out/` na raiz (sem `basePath`).
+3. Em **Build & Development Settings** confirme:
+   - **Build Command:** `npm run build`
+   - **Output Directory:** `out` (a Vercel detecta automaticamente, mas pode ajustar)
+4. A Vercel serve o `out/` como site estático. Pronto.
+
+Se o deploy falhar com erro de `routes-manifest.json`, limpe o cache do projeto em **Settings → General → Clear Build Cache** e re-deploy.
 
 ## Informações comerciais
 
