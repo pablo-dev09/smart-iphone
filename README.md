@@ -30,8 +30,8 @@ O site não apresenta estoque, preços, horários, prazos ou condições especí
 Os arquivos usados pela página ficam em `public/assets`:
 
 - `hero-studio.jpg`: fundo complementar do hero criado por IA.
-- `smart-reel-01.mp4`: vídeo principal do hero.
-- `smart-reel-02.mp4`: vídeo da seção de assistência.
+- `smart-reel-01.mp4`: vídeo da seção de assistência e da galeria.
+- `smart-reel-02.mp4`: vídeo complementar da galeria.
 - `brand-logo.jpg`, `airpods.jpg` e `product-range.jpg`: artes fornecidas pela marca.
 
 Ao substituir uma mídia, mantenha o nome atual ou atualize a referência em `src/App.tsx`. Comprima novas imagens e vídeos antes de publicar.

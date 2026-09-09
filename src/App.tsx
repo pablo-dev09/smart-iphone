@@ -42,20 +42,6 @@ function Icon({ name, size = 22 }: { name: IconName; size?: number }) {
   )
 }
 
-function useReducedMotion() {
-  const [reduced, setReduced] = useState(false)
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setReduced(media.matches)
-    update()
-    media.addEventListener('change', update)
-    return () => media.removeEventListener('change', update)
-  }, [])
-
-  return reduced
-}
-
 function useReveal() {
   useEffect(() => {
     const items = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
@@ -145,8 +131,6 @@ function Header() {
 }
 
 function Hero() {
-  const reducedMotion = useReducedMotion()
-
   return (
     <section className="hero" id="topo" aria-labelledby="hero-title">
       <div className="hero-backdrop" aria-hidden="true">
@@ -167,38 +151,6 @@ function Hero() {
           <p className="hero-contact">Atendimento direto pelo WhatsApp <strong>{business.whatsappDisplay}</strong></p>
         </div>
 
-        <div className="hero-media" aria-label="Conteúdo em destaque da Smart">
-          <div className="hero-media__orbit" aria-hidden="true" />
-          <div className="hero-media__card">
-            {reducedMotion ? (
-              <img src={`${import.meta.env.BASE_URL}assets/product-range.jpg`} alt="Seleção de produtos divulgados pela Smart" width="1400" height="1750" />
-            ) : (
-              <video
-                src={`${import.meta.env.BASE_URL}assets/smart-reel-01.mp4`}
-                poster={`${import.meta.env.BASE_URL}assets/product-range.jpg`}
-                autoPlay
-                muted
-                playsInline
-                preload="metadata"
-                aria-label="Vídeo de produtos e atendimento da Smart"
-                onLoadedMetadata={(event) => { event.currentTarget.currentTime = 9.25 }}
-                onTimeUpdate={(event) => {
-                  if (event.currentTarget.currentTime >= 14.6) event.currentTarget.currentTime = 9.25
-                }}
-                onEnded={(event) => {
-                  event.currentTarget.currentTime = 9.25
-                  void event.currentTarget.play()
-                }}
-              />
-            )}
-            <span className="hero-media__shade" aria-hidden="true" />
-            <span className="hero-media__label"><i /> Conteúdo da Smart</span>
-          </div>
-          <div className="hero-media__note">
-            <span className="hero-media__icon"><Icon name="spark" /></span>
-            <span><small>Venda + assistência</small><strong>Tudo no mesmo lugar.</strong></span>
-          </div>
-        </div>
       </div>
 
       <div className="trust-row shell" aria-label="Diferenciais da Smart">
@@ -269,8 +221,8 @@ function Assistance() {
         <div className="assistance-media" data-reveal>
           <div className="assistance-media__frame">
             <video
-              src={`${import.meta.env.BASE_URL}assets/smart-reel-02.mp4`}
-              poster={`${import.meta.env.BASE_URL}assets/brand-logo.jpg`}
+              src={`${import.meta.env.BASE_URL}assets/smart-reel-01.mp4`}
+              poster={`${import.meta.env.BASE_URL}assets/product-range.jpg`}
               muted
               playsInline
               controls
