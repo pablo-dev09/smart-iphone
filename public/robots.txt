@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://pablo-dev09.github.io/smart-iphone/sitemap.xml
-

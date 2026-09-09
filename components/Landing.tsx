@@ -1,5 +1,7 @@
+'use client'
+
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react'
-import { business, trackCta, whatsappUrl, type WhatsAppTopic } from './config'
+import { asset, business, trackCta, whatsappUrl, type WhatsAppTopic } from '@/lib/config'
 
 type IconName =
   | 'arrow'
@@ -74,7 +76,17 @@ function SmartLogo({ compact = false }: { compact?: boolean }) {
   )
 }
 
-function WhatsAppLink({ topic = 'geral', label, className = '', children }: { topic?: WhatsAppTopic; label: string; className?: string; children: ReactNode }) {
+function WhatsAppLink({
+  topic = 'geral',
+  label,
+  className = '',
+  children,
+}: {
+  topic?: WhatsAppTopic
+  label: string
+  className?: string
+  children: ReactNode
+}) {
   const href = whatsappUrl(topic)
   return (
     <a
@@ -134,7 +146,7 @@ function Hero() {
   return (
     <section className="hero" id="topo" aria-labelledby="hero-title">
       <div className="hero-backdrop" aria-hidden="true">
-        <img src={`${import.meta.env.BASE_URL}assets/hero-studio.jpg`} alt="" width="1672" height="941" fetchPriority="high" />
+        <img src={asset('/assets/hero-studio.jpg')} alt="" width={1672} height={941} fetchPriority="high" />
       </div>
       <div className="hero-glow" aria-hidden="true" />
       <div className="hero-grid shell">
@@ -188,7 +200,7 @@ function Products() {
 
         <div className="product-layout">
           <figure className="product-feature" data-reveal>
-            <img src={`${import.meta.env.BASE_URL}assets/product-range.jpg`} alt="iPhone, iPad, MacBook, AirTag, Apple Pencil e AirPods divulgados pela Smart" width="1400" height="1750" loading="lazy" />
+            <img src={asset('/assets/product-range.jpg')} alt="iPhone, iPad, MacBook, AirTag, Apple Pencil e AirPods divulgados pela Smart" width={1400} height={1750} loading="lazy" />
             <div className="product-feature__overlay">
               <span>Seleção Smart</span>
               <strong>Um ecossistema.<br />Muitas possibilidades.</strong>
@@ -221,8 +233,8 @@ function Assistance() {
         <div className="assistance-media" data-reveal>
           <div className="assistance-media__frame">
             <video
-              src={`${import.meta.env.BASE_URL}assets/smart-reel-01.mp4`}
-              poster={`${import.meta.env.BASE_URL}assets/product-range.jpg`}
+              src={asset('/assets/smart-reel-01.mp4')}
+              poster={asset('/assets/product-range.jpg')}
               muted
               playsInline
               controls
@@ -286,10 +298,10 @@ function Process() {
 type GalleryItem = { type: 'image' | 'video'; src: string; alt: string; className?: string }
 
 const galleryItems: GalleryItem[] = [
-  { type: 'image', src: 'assets/airpods.jpg', alt: 'AirPods apresentados pela Smart', className: 'gallery-item--tall' },
-  { type: 'video', src: 'assets/smart-reel-01.mp4', alt: 'Vídeo da Smart com produtos Apple' },
-  { type: 'image', src: 'assets/brand-logo.jpg', alt: 'Marca Smart Especializada Apple' },
-  { type: 'video', src: 'assets/smart-reel-02.mp4', alt: 'Vídeo publicado pela Smart' },
+  { type: 'image', src: '/assets/airpods.jpg', alt: 'AirPods apresentados pela Smart', className: 'gallery-item--tall' },
+  { type: 'video', src: '/assets/smart-reel-01.mp4', alt: 'Vídeo da Smart com produtos Apple' },
+  { type: 'image', src: '/assets/brand-logo.jpg', alt: 'Marca Smart Especializada Apple' },
+  { type: 'video', src: '/assets/smart-reel-02.mp4', alt: 'Vídeo publicado pela Smart' },
 ]
 
 function Gallery() {
@@ -323,9 +335,9 @@ function Gallery() {
           {galleryItems.map((item, index) => (
             <button className={`gallery-item ${item.className || ''}`} type="button" onClick={() => openItem(item)} aria-label={`Ampliar: ${item.alt}`} data-reveal key={`${item.src}-${index}`}>
               {item.type === 'image' ? (
-                <img src={`${import.meta.env.BASE_URL}${item.src}`} alt={item.alt} loading="lazy" />
+                <img src={asset(item.src)} alt={item.alt} loading="lazy" />
               ) : (
-                <video src={`${import.meta.env.BASE_URL}${item.src}`} muted playsInline preload="metadata" aria-label={item.alt} />
+                <video src={asset(item.src)} muted playsInline preload="metadata" aria-label={item.alt} />
               )}
               <span className="gallery-item__icon"><Icon name={item.type === 'video' ? 'play' : 'spark'} size={18} /></span>
             </button>
@@ -335,8 +347,8 @@ function Gallery() {
 
       <dialog className="lightbox" ref={dialogRef} onClose={() => setActive(null)} onClick={(event) => event.target === dialogRef.current && close()} aria-label="Visualização ampliada">
         <button className="lightbox__close" type="button" onClick={close} aria-label="Fechar visualização"><Icon name="close" /></button>
-        {active?.type === 'image' && <img src={`${import.meta.env.BASE_URL}${active.src}`} alt={active.alt} />}
-        {active?.type === 'video' && <video src={`${import.meta.env.BASE_URL}${active.src}`} controls autoPlay muted playsInline aria-label={active.alt} />}
+        {active?.type === 'image' && <img src={asset(active.src)} alt={active.alt} />}
+        {active?.type === 'video' && <video src={asset(active.src)} controls autoPlay muted playsInline aria-label={active.alt} />}
       </dialog>
     </section>
   )
@@ -434,7 +446,7 @@ function Footer() {
           <p>Produtos e assistência técnica<br />em Campo Grande, RJ.</p>
         </div>
         <div className="footer-links">
-          <div><strong>Navegação</strong><a href="#produtos">Produtos</a><a href="#assistencia">Assistência</a><a href="#como-funciona">Como funciona</a><a href="#loja">Loja</a><a href={`${import.meta.env.BASE_URL}privacidade.html`}>Privacidade</a></div>
+          <div><strong>Navegação</strong><a href="#produtos">Produtos</a><a href="#assistencia">Assistência</a><a href="#como-funciona">Como funciona</a><a href="#loja">Loja</a><a href={asset('/privacidade/')}>Privacidade</a></div>
           <div><strong>Contato</strong><WhatsAppLink label="footer_whatsapp">{business.whatsappDisplay}</WhatsAppLink><a href={business.instagram} target="_blank" rel="noreferrer">Instagram</a><a href={business.maps} target="_blank" rel="noreferrer">Como chegar</a></div>
         </div>
       </div>
@@ -446,8 +458,13 @@ function Footer() {
   )
 }
 
-function App() {
+export default function Landing() {
   useReveal()
+
+  // Marca o <html> como habilitado por JS (substitui o document.documentElement.classList.add do Vite).
+  useEffect(() => {
+    document.documentElement.classList.add('js')
+  }, [])
 
   return (
     <>
@@ -469,5 +486,3 @@ function App() {
     </>
   )
 }
-
-export default App
