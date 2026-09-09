@@ -43,13 +43,14 @@ https://pablo-dev09.github.io/smart-iphone/
 ### Vercel
 
 1. Importe o repositório em https://vercel.com/new.
-2. A Vercel detecta Next.js automaticamente e respeita o `output: 'export'` do `next.config.mjs`. O build usa `npm run build`, que gera a pasta `out/` na raiz (sem `basePath`).
-3. Em **Build & Development Settings** confirme:
+2. Em **Build & Development Settings** confirme:
    - **Build Command:** `npm run build`
-   - **Output Directory:** `out` (a Vercel detecta automaticamente, mas pode ajustar)
+   - **Output Directory:** `out`
+   - **Framework Preset:** `Other` (não `Next.js` — o `output: 'export'` gera site estático, e o preset Next.js tenta validar artefatos SSR que não existem)
+3. O arquivo `vercel.json` já deixa isso explícito.
 4. A Vercel serve o `out/` como site estático. Pronto.
 
-Se o deploy falhar com erro de `routes-manifest.json`, limpe o cache do projeto em **Settings → General → Clear Build Cache** e re-deploy.
+Se o projeto na Vercel já existe e está com a config cacheada, delete-o e importe de novo — o `vercel.json` novo não sobrescreve a config de um deploy antigo.
 
 ## Informações comerciais
 
